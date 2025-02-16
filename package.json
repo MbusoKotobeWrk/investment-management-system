@@ -1,0 +1,22 @@
+{
+  "name": "investment-management-system",
+  "version": "1.0.0",
+  "description": "An API for managing investments, calculating fees, and tracking returns.",
+  "main": "Main.js",
+  "author": "Mbuso Kotobe",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "express": "^4.21.2",
+    "pg": "^8.13.1",
+    "uuid": "^11.0.5"
+  },
+  "scripts": {
+    "start": "cross-env NODE_PATH=./Src nodemon Main.js",
+    "start:debug": "cross-env NODE_PATH=./Src nodemon --inspect Main.js"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "nodemon": "^3.1.9"
+  }
+}

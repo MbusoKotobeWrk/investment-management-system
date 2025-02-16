@@ -1,0 +1,1 @@
+export const EmptyKeyErrorMessage = "No valid keys to build query with.";
