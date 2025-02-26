@@ -1,4 +1,4 @@
-import { QueryConstant } from "../Enum";
+import { QueryConstant } from "../../Enum/Enum.js"
 
 export function GetGenericInsertQuery (Keys)
 {
@@ -7,7 +7,7 @@ export function GetGenericInsertQuery (Keys)
         VALUES (${Keys
             .map((_, i) => `$${i + QueryConstant.PLACEHOLDER_INCREMENT}`)
             .join(QueryConstant.SEPARATOR)})
-    `;
+    `; 
 }
 
 export function GetByIdQuery (Id)
@@ -17,4 +17,3 @@ export function GetByIdQuery (Id)
         WHERE ID = ${Id}
     `;
 }
-

@@ -12,11 +12,12 @@
     "uuid": "^11.0.5"
   },
   "scripts": {
-    "start": "cross-env NODE_PATH=./Src nodemon Main.js",
-    "start:debug": "cross-env NODE_PATH=./Src nodemon --inspect Main.js"
+    "start": "nodemon ./Src/Main.js",
+    "start:debug": "nodemon --inspect ./Src/Main.js"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",
+    "dotenv": "^16.4.7",
     "nodemon": "^3.1.9"
   }
 }

@@ -1,5 +1,6 @@
 export const Constant = Object.freeze({
-    EMPTY: 0
+    EMPTY: 0,
+    FIRST_ELEMENT: 0
 });
 
 export const QueryConstant = Object.freeze({
@@ -17,4 +18,8 @@ export const Domain = Object.freeze({
     INVESTMENT: "Investment",
     FEES: "Fees",
     INVESTMENT_FEES: "InvestmentFees"
+});
+
+export const Controllers = Object.freeze({
+    INVESTMENTS: "investments"
 });

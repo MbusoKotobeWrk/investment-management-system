@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import { InvestmentService } from '../Service/InvestmentService';
-import { HttpStatus } from '../Util/Controller/ControllerEnum';
-import { HttpStatusMessages } from "../Util/Controller/ControllerEnum";
-import { ResponseBuilder } from '../Util/Controller/ResponseBuilder';
-import { Constant, Domain } from '../Util/Enum';
+import { InvestmentService } from '../Service/InvestmentService.js';
+import { HttpStatus } from '../Enum/ControllerEnum.js';
+import { HttpStatusMessages } from "../Enum/ControllerEnum.js";
+import { ResponseBuilder } from "../Utility/Controller/ResponseBuilder.js";
+import { Constant, Domain } from '../Enum/Enum.js';
 
 const _Router = Router();
 

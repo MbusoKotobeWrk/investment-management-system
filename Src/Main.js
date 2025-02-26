@@ -1,7 +1,6 @@
 import Express from "express";
 import { v4 as Uuidv4 } from "uuid";
-import { InvestmentController } from "./Controller/InvestmentController";
-
+import { InvestmentController } from "./Controller/InvestmentController.js";
 
 const Application = Express();
 const PORT = process.env.PORT || 3000;

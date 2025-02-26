@@ -1,4 +1,4 @@
-import { Domain } from "../Enum";
+import { Controllers, Domain } from "../../Enum/Enum.js";
 
 function GenerateSuccessResponse (StatusCode, StatusMessage, Payload, ControllerName, CorrelationId) {
     return {
@@ -25,7 +25,7 @@ function GenerateFailureResponse (StatusCode, StatusMessage, ControllerName, Cor
 function GenerateRelatedLinks (ControllerName, Payload) {
     if (ControllerName == Domain.INVESTMENT) {
         return {
-            InvestmentDetails: `/investments/${Payload.Id}`
+            InvestmentDetails: `/${Controllers.INVESTMENTS}/${Payload.Id}`
         };
     }
 }
