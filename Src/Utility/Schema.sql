@@ -1,5 +1,5 @@
 -- Create Fees Table
-CREATE TABLE Fees (
+CREATE TABLE Fee (
     Id SERIAL PRIMARY KEY,
     Name VARCHAR(255) NOT NULL,
     DefaultAmount DECIMAL(15, 2) NOT NULL
@@ -11,7 +11,6 @@ CREATE TABLE Investment (
     Name VARCHAR(255) NOT NULL,
     Amount DECIMAL(15, 2) NOT NULL,
     Date DATE NOT NULL,
-    Fees INTEGER[] NOT NULL,  -- Array of Fee IDs (foreign keys) associated with this investment
     Returns DECIMAL(15, 2) -- Optional column for returns
 );
 
@@ -24,5 +23,5 @@ CREATE TABLE InvestmentFee (
     Date DATE NOT NULL,
     PRIMARY KEY (InvestmentId, FeeId), -- Composite key to avoid duplicates for the same Investment and Fee
     FOREIGN KEY (InvestmentId) REFERENCES Investment(Id) ON DELETE CASCADE,
-    FOREIGN KEY (FeeId) REFERENCES Fees(Id) ON DELETE CASCADE
+    FOREIGN KEY (FeeId) REFERENCES Fee(Id) ON DELETE CASCADE
 );

@@ -22,17 +22,38 @@ function GenerateSelectEverythingByIdQuery (Id) {
     return GetByIdQuery(Id);
 }
 
+function GetIdFromResult (Results) {
+    return Results.rows[Constant.FIRST_ELEMENT].id;
+}
+
+function GetRecordFromResult (Results) {
+    return PascaliseDbObjectKeys(Results.rows[Constant.FIRST_ELEMENT]);
+}
+
 export const RepositoryUtility = {
+    GetIdFromResult,
     GenerateInsertQuery,
-    GenerateSelectEverythingByIdQuery
+    GetRecordFromResult,
+    GenerateSelectEverythingByIdQuery,
 };
 
 // Helper methods
 
-function GetObjectKeys(ParamValObject) {
+function GetObjectKeys (ParamValObject) {
     const Keys = Object.keys(ParamValObject);
     if(Keys.length !== Constant.EMPTY) {
         return Keys;
     }
     return null;
 }
+
+function PascaliseDbObjectKeys (DbObject) {
+    const NewInvestment = {};
+    Object.keys(DbObject).forEach(Key =>
+    {
+        const pascalisedKey = Key.replace(/^./, match => match.toUpperCase());
+        NewInvestment[pascalisedKey] = DbObject[Key];
+    });
+    return NewInvestment;
+}
+
