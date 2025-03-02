@@ -1,13 +1,13 @@
 import { Constant } from "../../Enum/Enum.js";
 import { EmptyKeyErrorMessage } from "../ErrorMessage.js";
-import { GetByIdQuery, GetGenericInsertQuery } from "./QueryUtility.js";
+import { QueryUtility } from "./QueryUtility.js";
 
 function GenerateInsertQuery (ParamValObject, ShouldReturnId = false) {
     console.debug(`Generating insert query.`);
     const Keys = GetObjectKeys(ParamValObject);
     console.debug(`Object keys: `, Keys);
     if(Keys) {
-        let Query = GetGenericInsertQuery(Keys)
+        let Query = QueryUtility.GetGenericInsertQuery(Keys)
         console.debug(`Generated insert query: ${Query} using keys: ${Keys}`);
         if(ShouldReturnId) {
             console.debug(`Returned query: ${Query + "RETURNING Id"}`);
@@ -19,7 +19,7 @@ function GenerateInsertQuery (ParamValObject, ShouldReturnId = false) {
 }
 
 function GenerateSelectEverythingByIdQuery (Id) {
-    return GetByIdQuery(Id);
+    return QueryUtility.GetByIdQuery(Id);
 }
 
 function GetIdFromResult (Results) {
