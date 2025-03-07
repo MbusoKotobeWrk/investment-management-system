@@ -2,7 +2,7 @@ import { InvestmentRepository } from "../Repository/InvestmentRespository.js";
 
 async function SaveInvestment(Entity) {
     try {
-        return await InvestmentRepository.SaveInvestment(entity);
+        return await InvestmentRepository.SaveInvestment(Entity);
     } catch (Error) {
         console.error("An error occured while trying to save an investment: ", Error);
     }

@@ -23,7 +23,7 @@ _Router.post("/investments", async (Request, Response) => {
         );
     } else {
         Response.status(HttpStatus.INTERNAL_SERVER_ERROR).json(
-            ResponseBuilder.GenerateFailureResponse(
+            ResponseBuilder.GenerateServerFailureResponse(
                 HttpStatus.INTERNAL_SERVER_ERROR, 
                 HttpStatusMessages.INTERNAL_SERVER_ERROR,
                 Domain.INVESTMENT,
