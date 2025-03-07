@@ -2,13 +2,11 @@ import { InvestmentRepository } from "../Repository/InvestmentRespository.js";
 
 async function SaveInvestment(entity) {
     try {
-        const Id = await InvestmentRepository.SaveInvestment(entity);
-        const SavedRecord = await InvestmentRepository.GetById(Id);
-        return SavedRecord;
+        return await InvestmentRepository.SaveInvestment(entity);
     } catch (Error) {
         console.error("An error occured while trying to save an investment: ", Error);
     }
-    return null;
+    return undefined;
 }
 
 async function GetById(Id) {
@@ -17,7 +15,7 @@ async function GetById(Id) {
     } catch (Error) {
         console.error("An error occured while trying to fetch an investment: ", Error);
     }
-    return null;
+    return undefined;
 }
 
 export const InvestmentService = {

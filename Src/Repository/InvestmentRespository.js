@@ -8,7 +8,7 @@ async function SaveInvestment (Investment) {
     console.debug("Saving investment: ", Investment);
     const Connection = await DbConnectionInstance.GetDbConnection();
     const Results = await Connection.query(RepositoryUtility.GenerateInsertQuery(Investment, ReturnIdOption.RETURN_ID), Object.values(Investment));
-    return RepositoryUtility.GetIdFromResult(Results);
+    return GetById(RepositoryUtility.GetIdFromResult(Results));
 };
 
 async function GetById(Id) {

@@ -1,36 +1,75 @@
 import { Controllers, Domain } from "../../Enum/Enum.js";
 
+/** 
+ * Since everything in here is going to the client side,
+ * it's worth noting that everything should be kept at camelCasing
+ * to confirm with the HTTPS RestAPI standards.
+ * 
+ * THIS ONLY APPLIES TO RESOURCES THAT WILL END-UP IN THE CLIENT SIDE.
+*/
+
 function GenerateSuccessResponse (StatusCode, StatusMessage, Payload, ControllerName, CorrelationId) {
     return {
-        StatusCode: StatusCode,
-        StatusMessage: StatusMessage,
-        Body: Payload,
-        CorrelationId: CorrelationId,
-        RelatedLinks: GenerateRelatedLinks(ControllerName, Payload),
-        Timestamp: new Date().toUTCString()
+        status: StatusCode,
+        message: StatusMessage,
+        data: CamelCasePayload (Payload),
+        correlationId: CorrelationId,
+        relatedLinks: GenerateRelatedLinks(ControllerName, Payload),
+        timestamp: new Date().toUTCString()
     };
 }
 
-function GenerateFailureResponse (StatusCode, StatusMessage, ControllerName, CorrelationId) {
+function GenerateResponseFailureResponse (StatusMessage, StatusCode, ControllerName, ErrorUriReference, CorrelationId) {
     return {
-        StatusCode: StatusCode,
-        StatusMessage: StatusMessage,
-        CorrelationId: CorrelationId,
-        Path: `/${ControllerName.toLowerCase()}`,
-        DeveloperMessage: `See logs for more details at ${new Date().toUTCString()}`,
-        Timestamp: new Date().toUTCString()
+        title: StatusMessage,
+        status: StatusCode,
+        instance: `/${ControllerName.toLowerCase()}`,
+        type: ErrorUriReference,
+        correlationId: CorrelationId,
+        timestamp: new Date().toUTCString()
     };
 }
+
+function GenerateServerFailureResponse (StatusCode, StatusMessage, ControllerName, CorrelationId) {
+    return {
+        title: StatusMessage,
+        status: StatusCode,
+        instance: `/${ControllerName.toLowerCase()}`,
+        type: `https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/500`,
+        correlationId: CorrelationId,
+        developerMessage: `See logs for more details at ${new Date().toUTCString()}`,
+        timestamp: new Date().toUTCString()
+    };
+}
+
+
+export const ResponseBuilder = {
+    GenerateSuccessResponse,
+    GenerateServerFailureResponse,
+    GenerateResponseFailureResponse,
+}
+
+//Helper methods
 
 function GenerateRelatedLinks (ControllerName, Payload) {
     if (ControllerName == Domain.INVESTMENT) {
         return {
-            InvestmentDetails: `/${Controllers.INVESTMENTS}/${Payload.Id}`
+            investmentDetails: `/${Controllers.INVESTMENTS}/${Payload.Id}`
         };
     }
 }
 
-export const ResponseBuilder = {
-    GenerateSuccessResponse,
-    GenerateFailureResponse
+function CamelCasePayload (Payload) {
+    let result = {};
+    for (const Key in Payload) {
+        if (Payload.hasOwnProperty(Key)) {
+            const camelCasedKey = toCamelCase(Key);
+            result[camelCasedKey] = Payload[Key];
+        }
+    }
+    return result;
+}
+
+function toCamelCase(String) {
+    return String.charAt(0).toLowerCase() + String.slice(1);
 }

@@ -1,6 +1,6 @@
 import { QueryConstant } from "../../Enum/Enum.js"
 
-export function GetGenericInsertQuery (Keys)
+function GetGenericInsertQuery (Keys)
 {
     return `
         INSERT INTO INVESTMENT (${Keys.join(QueryConstant.SEPARATOR)})
@@ -10,10 +10,26 @@ export function GetGenericInsertQuery (Keys)
     `; 
 }
 
-export function GetByIdQuery (Id)
+function GetGenericInsertQueryInclId (Keys)
+{
+    return `
+        INSERT INTO INVESTMENT (${Keys.join(QueryConstant.SEPARATOR)})
+        VALUES (${Keys
+            .map((_, i) => `$${i + QueryConstant.PLACEHOLDER_INCREMENT}`)
+            .join(QueryConstant.SEPARATOR)}) RETURNING Id
+    `; 
+}
+
+function GetByIdQuery (Id)
 {
     return `
         SELECT * FROM INVESTMENT 
         WHERE ID = ${Id}
     `;
+}
+
+export const QueryUtility = {
+    GetByIdQuery,
+    GetGenericInsertQuery,
+    GetGenericInsertQueryInclId
 }

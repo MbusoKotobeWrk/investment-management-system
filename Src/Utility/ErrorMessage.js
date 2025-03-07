@@ -1,1 +1,1 @@
-export const EmptyKeyErrorMessage = "No valid keys to build query with.";
+export const EmptyKeyErrorMessage = "No valid keys to build query with, object may be null or empty.";
