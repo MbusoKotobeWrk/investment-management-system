@@ -1,10 +1,10 @@
 import dotenv from "dotenv";
 import Pg from "pg";
-const { Client } = Pg;
 import { dirname as DirName, resolve as Resolve } from "path";
 import { fileURLToPath as FileURLToPath } from "url";
 
 
+const { Client } = Pg;
 const __Dirname = DirName(FileURLToPath(import.meta.url));
 const EnvPath = Resolve(__Dirname, '../../../.env/Configuration.env');
 dotenv.config({ path: EnvPath });

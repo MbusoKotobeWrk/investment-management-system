@@ -1,6 +1,6 @@
 import { InvestmentRepository } from "../Repository/InvestmentRespository.js";
 
-async function SaveInvestment(entity) {
+async function SaveInvestment(Entity) {
     try {
         return await InvestmentRepository.SaveInvestment(entity);
     } catch (Error) {
