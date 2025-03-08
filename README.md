@@ -62,9 +62,11 @@ The current process of managing investments, calculating fees, and tracking retu
 - Test if the returns are correctly calculated and displayed for a given investment.
 
 ## Project Structure
+
 ```
 investment-management-system
 ├─ package.json
+├─ README.md
 ├─ specification.md
 └─ Src
    ├─ Configuration
@@ -88,13 +90,20 @@ investment-management-system
    └─ Utility
       ├─ Configuration
       │  └─ DbConnection.js
+      ├─ Constant.js
       ├─ Controller
       │  ├─ ControllerUtility.js
       │  └─ ResponseBuilder.js
       ├─ ErrorMessage.js
+      ├─ Middleware
+      │  ├─ Controller
+      │  │  └─ InvestmentResponseHandler.js
+      │  └─ Service
+      │     └─ ServiceResponseHandler.js
       ├─ Repository
       │  ├─ QueryUtility.js
       │  └─ RepositoryUtility.js
-      └─ Schema.sql
+      ├─ Schema.sql
+      └─ Utility.js
 
 ```

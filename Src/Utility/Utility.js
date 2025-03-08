@@ -1,12 +1,19 @@
-function isServiceExecutionSuccessful(response) {
-    return response !== undefined;
+import { EMPTY } from "../Utility/Constant.js";
+
+function IsServiceExecutionSuccessful(Response) {
+    return Response !== undefined;
 }
 
-function isServiceExecutionError(response) {
-    return response === undefined;
+function IsServiceResultEmpty(Response) {
+    return Response === null || Response === EMPTY;
+}
+
+function IsServiceExecutionError(Response) {
+    return Response === undefined;
 }
 
 export const Utility = {
-    isServiceExecutionError,
-    isServiceExecutionSuccessful,
+    IsServiceExecutionError,
+    IsServiceExecutionSuccessful,
+    IsServiceResultEmpty,
 };
