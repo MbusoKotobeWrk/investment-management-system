@@ -1,7 +1,8 @@
 import Express from "express";
 import { v4 as Uuidv4 } from "uuid";
 import { InvestmentController } from "./Controller/InvestmentController.js";
-import { ServiceResponseHandler } from "./Utility/Middleware/Service/ServiceResponseHandler.js";
+import { ResponseHandler } from "./Utility/Middleware/ResponseProcessor.js";
+import { RequestHandler } from "./Utility/Middleware/RequestProcessor.js";
 
 const Application = Express();
 const PORT = process.env.PORT || 3000;
@@ -17,9 +18,9 @@ Application.use((Request, Response, Next) => {
 });
 
 // Mounting the controllers.
+Application.use(RequestHandler.HttpRequestMiddleware);
 Application.use(InvestmentController);
-
-Application.use(ServiceResponseHandler.ServiceResponseMiddleware);
+Application.use(ResponseHandler.HttpResponseMiddleware);
 
 // Fully activating the api.
 Application.listen(PORT, () => {

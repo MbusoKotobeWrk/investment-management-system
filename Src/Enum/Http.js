@@ -1,3 +1,4 @@
+
 export const HttpStatus = Object.freeze({
     OK: 200,
     CREATED: 201,
@@ -19,3 +20,4 @@ export const HttpStatusMessages = Object.freeze({
     INTERNAL_SERVER_ERROR: "An unexpected error occurred on the server.",
     SERVICE_UNAVAILABLE: "The service is currently unavailable. Please try again later."
 });
+

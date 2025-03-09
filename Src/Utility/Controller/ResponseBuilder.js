@@ -1,4 +1,5 @@
-import { Controllers, Domain } from "../../Enum/Enum.js";
+import { Controllers } from "../../Enum/Controller.js";
+import { Domain } from "../../Enum/Domain.js";
 
 /** 
  * Since everything in here is going to the client side,
@@ -15,6 +16,18 @@ function GenerateSuccessResponse (StatusCode, StatusMessage, Payload, Controller
         data: CamelCasePayload (Payload),
         correlationId: CorrelationId,
         relatedLinks: GenerateRelatedLinks(ControllerName, Payload),
+        timestamp: new Date().toUTCString()
+    };
+}
+
+function GenerateBadRequestResponse (StatusMessage, StatusCode, Payload, ControllerName, ErrorUriReference, CorrelationId) {
+    return {
+        title: StatusMessage,
+        status: StatusCode,
+        type: ErrorUriReference,
+        errors: Payload,
+        instance: `/${ControllerName.toLowerCase()}`,
+        correlationId: CorrelationId,
         timestamp: new Date().toUTCString()
     };
 }
@@ -42,13 +55,6 @@ function GenerateServerFailureResponse (StatusCode, StatusMessage, ControllerNam
     };
 }
 
-
-export const ResponseBuilder = {
-    GenerateSuccessResponse,
-    GenerateServerFailureResponse,
-    GenerateResponseFailureResponse,
-}
-
 //Helper methods
 
 function GenerateRelatedLinks (ControllerName, Payload) {
@@ -72,4 +78,11 @@ function CamelCasePayload (Payload) {
 
 function toCamelCase(String) {
     return String.charAt(0).toLowerCase() + String.slice(1);
+}
+
+export const ResponseBuilder = {
+    GenerateSuccessResponse,
+    GenerateBadRequestResponse,
+    GenerateServerFailureResponse,
+    GenerateResponseFailureResponse,
 }

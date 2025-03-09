@@ -1,4 +1,4 @@
-import { QueryConstant } from "../../Enum/Enum.js"
+import { QueryConstant } from "../../Enum/Query.js";
 
 function GetGenericInsertQuery (Keys)
 {

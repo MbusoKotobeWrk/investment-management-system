@@ -1,17 +1,27 @@
 import { Router } from 'express';
 import { InvestmentService } from '../Service/InvestmentService.js';
+import { Domain } from "../Enum/Domain.js";
+
+/**
+ * @author Mbuso Kotobe
+ * 
+ * All service responses are passed to the Controller Middleware 
+ * which is responsible for processing the response.
+ */
 
 const _Router = Router();
 
 _Router.post("/investments", async (Request, Response, Next) => {
     const NewInvestment = await InvestmentService.SaveInvestment(Request.body);
     Request.ServiceResponse = NewInvestment;
+    Request.Domain = Domain.INVESTMENT;
     Next();
 });
 
 _Router.get("/investments/:id", async (Request, Response, Next) => {
     const Investment = await InvestmentService.GetById(Request.params.id);
     Request.ServiceResponse = Investment;
+    Request.Domain = Domain.INVESTMENT;
     Next();
 });
 
