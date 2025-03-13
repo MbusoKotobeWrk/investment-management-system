@@ -4,9 +4,9 @@ import { InvestmentValidator } from "../../../Validator/InvestmentValidator.js";
 import { EMPTY } from "../../Constant.js";
 import { ResponseBuilder } from "../../Controller/ResponseBuilder.js";
 
-function ProcessInvestmentClientResponse (Request, Response, Next) {
+function ProcessInvestmentClientRequest (Request, Response, Next) {
     
-    const ValidationResults = InvestmentValidator.ValidateRequest(Request.body);
+    const ValidationResults = InvestmentValidator.ValidateRequest(Request);
     Response.Payload = ValidationResults;
     if (ValidationResults.length !== EMPTY) {
         HandleValidationFailureResponse(Response, Request);
@@ -29,5 +29,5 @@ function HandleValidationFailureResponse (Response, Request) {
 }
 
 export const InvestmentRequestHandler = {
-    ProcessInvestmentClientResponse,
+    ProcessInvestmentClientRequest,
 };

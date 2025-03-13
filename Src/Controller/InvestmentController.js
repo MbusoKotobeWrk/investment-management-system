@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { InvestmentService } from '../Service/InvestmentService.js';
 import { Domain } from "../Enum/Domain.js";
+import { RequestHandler } from '../Utility/Middleware/RequestProcessor.js';
 
 /**
  * @author Mbuso Kotobe
@@ -11,15 +12,16 @@ import { Domain } from "../Enum/Domain.js";
 
 const _Router = Router();
 
-_Router.post("/investments", async (Request, Response, Next) => {
+_Router.post("/investments", RequestHandler.HttpRequestMiddleware, async (Request, Response, Next) => {
     const NewInvestment = await InvestmentService.SaveInvestment(Request.body);
     Request.ServiceResponse = NewInvestment;
     Request.Domain = Domain.INVESTMENT;
     Next();
 });
 
-_Router.get("/investments/:id", async (Request, Response, Next) => {
-    const Investment = await InvestmentService.GetById(Request.params.id);
+_Router.get("/investments/:id", RequestHandler.HttpRequestMiddleware, async (Request, Response, Next) => {
+    console.debug(`Processing get request with the given id=${Request.params.id}`);
+    const Investment = await InvestmentService.GetById(Request.params.id); 
     Request.ServiceResponse = Investment;
     Request.Domain = Domain.INVESTMENT;
     Next();

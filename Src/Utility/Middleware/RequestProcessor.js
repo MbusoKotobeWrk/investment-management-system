@@ -6,7 +6,7 @@ function HttpRequestMiddleware (Request, Response, Next) {
     SetDomain(Request);
     switch (Request.Domain) {
         case Domain.INVESTMENT: {
-            InvestmentRequestHandler.ProcessInvestmentClientResponse(Request, Response, Next)
+            InvestmentRequestHandler.ProcessInvestmentClientRequest(Request, Response, Next)
             break;
         }
         default:
@@ -15,6 +15,7 @@ function HttpRequestMiddleware (Request, Response, Next) {
 }
 
 function SetDomain (Request) {
+    console.debug(`Processing get request with the given id=${Request.params.id}`);
     if (Request.path.startsWith(`/${Controllers.INVESTMENTS}`)) {
         Request.Domain = Domain.INVESTMENT;
     } else if (Request.path.startsWith(`/${Controllers.FEE}`)) {

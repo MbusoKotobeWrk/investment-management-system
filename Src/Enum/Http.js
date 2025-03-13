@@ -21,3 +21,9 @@ export const HttpStatusMessages = Object.freeze({
     SERVICE_UNAVAILABLE: "The service is currently unavailable. Please try again later."
 });
 
+export const HttpMethod = Object.freeze({
+    POST: "POST",
+    GET: "GET",
+    PUT: "PUT",
+    DELETE: "DELETE"
+});

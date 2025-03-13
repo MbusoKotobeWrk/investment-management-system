@@ -1,11 +1,29 @@
 import { Domain } from "../Enum/Domain.js";
 import { Amount as AmountEnum} from "../Enum/Enum.js";
+import { HttpMethod } from "../Enum/Http.js";
 import { InvestmentProperty } from "../Enum/InvestmentProperty.js";
 import { Type } from "../Enum/Type.js";
 import { EMPTY } from "../Utility/Constant.js";
 import { InvalidStartingAmountErrorMessage, MissingValueErrorMessage, UndefinedParamErrorMessage } from "../Utility/ErrorMessage.js";
 
-function ValidateRequest (Investment) {
+function ValidateRequest (Request) {
+    switch (Request.method) {
+        case HttpMethod.DELETE:
+            break;
+        case HttpMethod.GET:
+            return ValidateGetRequest(Request);
+        case HttpMethod.PUT:
+            break;
+        case HttpMethod.PATCH:
+            break;
+        case HttpMethod.POST:
+            return ValidatePostRequest(Request.body);
+        case HttpMethod.PUT:
+            return ValidatePostRequest(Request.body);
+    }
+}
+
+function ValidatePostRequest(Investment) {
     const Errors = new Array();
     if (Investment != undefined && Investment != null && Investment instanceof Object) {
         if (IsSafeToProceed(Investment, Errors)) {
@@ -15,10 +33,26 @@ function ValidateRequest (Investment) {
             ValidateDatePropertyValue(Investment, Errors);
             ValidateReturnsPropertyValue(Investment.Returns, Errors);
         }
-        return Errors; //[...new Set(Errors)];
+        return Errors;
     }
     Errors.push(`Invalid request payload.`);
-    return Errors; //[...new Set(Errors)];
+    return Errors;
+}
+
+/**
+ * Accepts the HttpRequest object for query param validations.
+ * @param {HttpRequestObject} Request 
+ */
+function ValidateGetRequest (Request) {
+    const Errors = new Array();
+    const id = Request.params.id;
+
+    if (!id) {
+        Errors.push(`Provide an id`);
+    } else if (!Number.isInteger(Number(id))) {
+        Errors.push(`Invalid id: ${id}`);
+    }
+    return Errors;
 }
 
 function IsSafeToProceed(Investment, Errors) {
