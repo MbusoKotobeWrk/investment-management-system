@@ -76,8 +76,14 @@ investment-management-system
    ├─ Dto
    │  └─ Return.js
    ├─ Enum
-   │  ├─ ControllerEnum.js
-   │  └─ Enum.js
+   │  ├─ Controller.js
+   │  ├─ Domain.js
+   │  ├─ Enum.js
+   │  ├─ ErrorUriReference.js
+   │  ├─ Http.js
+   │  ├─ InvestmentProperty.js
+   │  ├─ Query.js
+   │  └─ Type.js
    ├─ Main.js
    ├─ Model
    │  ├─ Fee.js
@@ -87,23 +93,53 @@ investment-management-system
    │  └─ InvestmentRespository.js
    ├─ Service
    │  └─ InvestmentService.js
-   └─ Utility
-      ├─ Configuration
-      │  └─ DbConnection.js
-      ├─ Constant.js
-      ├─ Controller
-      │  ├─ ControllerUtility.js
-      │  └─ ResponseBuilder.js
-      ├─ ErrorMessage.js
-      ├─ Middleware
-      │  ├─ Controller
-      │  │  └─ InvestmentResponseHandler.js
-      │  └─ Service
-      │     └─ ServiceResponseHandler.js
-      ├─ Repository
-      │  ├─ QueryUtility.js
-      │  └─ RepositoryUtility.js
-      ├─ Schema.sql
-      └─ Utility.js
+   ├─ Utility
+   │  ├─ Configuration
+   │  │  └─ DbConnection.js
+   │  ├─ Constant.js
+   │  ├─ Controller
+   │  │  └─ ResponseBuilder.js
+   │  ├─ ErrorMessage.js
+   │  ├─ Middleware
+   │  │  ├─ Controller
+   │  │  │  ├─ InvestmentRequestHandler.js
+   │  │  │  └─ InvestmentResponseHandler.js
+   │  │  ├─ CorrelationProcessor.js
+   │  │  ├─ RequestProcessor.js
+   │  │  └─ ResponseProcessor.js
+   │  ├─ Repository
+   │  │  ├─ QueryUtility.js
+   │  │  └─ RepositoryUtility.js
+   │  ├─ Schema.sql
+   │  └─ Utility.js
+   └─ Validator
+      ├─ InvestmentValidator.js
+      └─ Validator.js
 
 ```
+
+# How to run the application
+### Presequities 
+1. NodeJS V18 (https://nodejs.org/en/download)
+2. Postgres Server (https://www.postgresql.org/download/windows/)
+3. DBeaver Community Uniserval Database Tool (https://dbeaver.io/download/)
+
+### Creating the database
+1. In the project root folder, create a folde called `.env`
+2. Inside the newly created folder, create a file and name it `Configuration.env`
+3. Put the following content inside the file:
+`
+   DB_HOST: localhost
+   DB_PORT: 5432
+   DB_USER: InvestmentApplication
+   DB_PASSWORD: InvestmentDb#2025@0215
+   DB_DATABASE: InvestmentDb
+`
+4. Open DBeaver and create a Database called: `InvestmentDb` and leave every config to default e.g. `PORT 5432`
+5. Create a database user for the application and name the user: `InvestmentApplication` and give the user all priviledges.
+   Here's a video if you need one: https://www.youtube.com/watch?v=sKg_TrKBNok
+
+### Finally... running the application
+1. Open the cloned project in any IDE/Text Editor you use
+2. If using VSCODE, open a file named package.json 
+4. Look under the `scripts` key, there'll be a debug button, click on it and then choose an option to run the application on. Any option will do. The first option runs the application without any debugging enabled. The second option runs the application in debug mode which attaches a debugger to your application process.
